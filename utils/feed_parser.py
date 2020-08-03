@@ -20,8 +20,8 @@ def FeedParaser(rss_link):
 
   for item in RssHubFeed.entries:
     data={}
-    # for detail in item.keys():
-    #   data[detail]=item[detail]
+     for detail in item.keys():
+       data[detail]=item[detail]
     data['title']=item['title']
     data['summary']=item['summary']
     data['id']=item['id']
