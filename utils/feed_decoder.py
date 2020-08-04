@@ -26,7 +26,6 @@ def TweetDecoder(rss_data):
       'plain': None
   }
   
-  soup.replace('<p>', '')
   
   for link in soup.find_all('a'):
     link.replace_with(' ')
