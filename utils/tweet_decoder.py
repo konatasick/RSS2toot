@@ -58,9 +58,9 @@ def TweetDecoder(rss_data):
   # print(soup.prettify())
   # print(str(data))
   if config['MASTODON']['ShowSource'] == 'true':
-    data['plain'] = unescape(soup.prettify()) + '\n'+config['MASTODON']['TweetSourcePrefix']+' ' + rss_data['link']
+    data['plain'] = config['MASTODON']['Prefix'] + ' \n' + unescape(soup.prettify()) + '\n\n' +config['MASTODON']['TweetSourcePrefix']+' ' + rss_data['link'] + '\n\n' + config['MASTODON']['Appendix']
   else:
-    data['plain'] = unescape(soup.prettify())
+    data['plain'] = config['MASTODON']['Prefix'] + ' \n' + unescape(soup.prettify()) + '\n\n' + config['MASTODON']['Appendix']
   return data 
 
 if __name__ == '__main__':
