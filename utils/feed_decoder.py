@@ -27,7 +27,7 @@ def TweetDecoder(rss_data):
   }
 
   for link in soup.find_all('a'):
-    link.replace_with(' ' + link.get('href') + ' ')
+    link.replace_with(' ')
 
   for iframe in soup.find_all('iframe'):
     data['iframe'].append(iframe.get('src').replace('https://player.bilibili.com/player.html?aid=', 'https://www.bilibili.com/video/av'))
@@ -38,8 +38,8 @@ def TweetDecoder(rss_data):
     data['image'].append(image.get('src'))
     image.replace_with('')
 
-  for br in soup.find_all('br'):
-    br.replace_with('\n')
+  for p in soup.find_all('p'):
+    p.replace_with('\n')
 
   # print(soup.prettify())
   # print(str(data))
