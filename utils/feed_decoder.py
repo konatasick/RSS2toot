@@ -39,6 +39,9 @@ def TweetDecoder(rss_data):
     data['image'].append(image.get('src'))
     image.replace_with('')
 
+  for p in soup.find_all('p'):
+    p.replace_with(p.text)
+
 
   # print(soup.prettify())
   # print(str(data))
