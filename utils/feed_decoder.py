@@ -32,11 +32,11 @@ def TweetDecoder(rss_data):
     if (link.has_attr('data-url')):
       if ('://t.cn/' in link.get('data-url')):
         if ('微博视频' in link.getText()):
-          link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['VideoSourcePrefix']} {link.getText()} {link.get('href')}[?bs4_replace_flag?]''')
+          link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['VideoSourcePrefix']} {link.getText()} {link.get('href')}[?bs4_replace_flag?]''' + '\n')
         else:
-          link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['ExternalLinkPrefix']} {link.get('href')}[?bs4_replace_flag?]''')
+          link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['ExternalLinkPrefix']} {link.get('href')}[?bs4_replace_flag?]''' + '\n')
       else:
-        link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['ExternalLinkPrefix']} {link.getText()} {link.get('href')}[?bs4_replace_flag?]''')
+        link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['ExternalLinkPrefix']} {link.getText()} {link.get('href')}[?bs4_replace_flag?]''' + '\n')
     elif (link.getText()[-1] == '#'):
       link.replace_with(f'''[?bs4_replace_flag?] {link.getText()[:-1]} [?bs4_replace_flag?]''')
     else:
