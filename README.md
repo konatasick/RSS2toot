@@ -1,6 +1,6 @@
 # ins2toot
 
-A simple script that transport dynamic from bilibili to Mastodon. Based on the Twitter RSS feed powered by [RSSBox](https://github.com/stefansundin/rssbox).
+A simple script that transport dynamic from Instagram to Mastodon. Based on the Instagram RSS feed powered by [RSSBox](https://github.com/stefansundin/rssbox).
 
 一个将ins动态搬运到长毛象的脚本——基于[RSSbox](https://github.com/stefansundin/rssbox)生成的ins动态RSS。
 
