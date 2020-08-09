@@ -52,9 +52,9 @@ def TweetDecoder(rss_data):
   maxchar = int(config['MASTODON']['maxchar'])
 
   if len(soup.text) > maxchar:
-     data['plain'] = config['MASTODON']['Prefix'] + '\n《' + rss_data['title'] + '》\n' + unescape(soup.prettify())[:maxchar] + '…… \n' + config['MASTODON']['Appendix'] + '\n\n' +config['MASTODON']['BiliSourcePrefix']+' ' + rss_data['link']
+     data['plain'] = config['MASTODON']['Prefix'] + '\n『' + rss_data['title'] + '』\n' + unescape(soup.prettify())[:maxchar] + '…… \n阅读全文： ' + rss_data['link'] + '\n\n' + config['MASTODON']['Appendix']
   else:
-     data['plain'] = config['MASTODON']['Prefix'] + '\n《' + rss_data['title'] + '》\n' + unescape(soup.prettify()) + '\n' + config['MASTODON']['Appendix'] + '\n\n' +config['MASTODON']['BiliSourcePrefix']+' ' + rss_data['link']
+     data['plain'] = config['MASTODON']['Prefix'] + '\n『' + rss_data['title'] + '』\n' + unescape(soup.prettify()) + '\n' +config['MASTODON']['BiliSourcePrefix']+' ' + rss_data['link'] + '\n\n' + config['MASTODON']['Appendix']
   return data 
 
 if __name__ == '__main__':
