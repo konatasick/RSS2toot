@@ -41,9 +41,9 @@ def TweetDecoder(rss_data):
 
   # print(soup.prettify())
   # print(str(data))
+  maxchar = int(config['MASTODON']['maxchar'])
 
-
-  if len(soup.text) > int(config['MASTODON']['maxchar']):
+  if len(soup.text) > maxchar:
      data['plain'] = config['MASTODON']['Prefix'] + '\n' + unescape(soup.prettify())[:maxchar] + '…… \n' + config['MASTODON']['Appendix'] + '\n\n' +config['MASTODON']['BiliSourcePrefix']+' ' + rss_data['link']
   else:
      data['plain'] = config['MASTODON']['Prefix'] + '\n' + unescape(soup.prettify()) + '\n' + config['MASTODON']['Appendix'] + '\n\n' +config['MASTODON']['BiliSourcePrefix']+' ' + rss_data['link']
