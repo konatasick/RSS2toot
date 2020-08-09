@@ -28,11 +28,7 @@ def TweetDecoder(rss_data):
   
   
   for link in soup.find_all('a'):
-    link.replace_with(' ')
-
-  for iframe in soup.find_all('iframe'):
-    data['iframe'].append(iframe.get('src').replace('https://player.bilibili.com/player.html?aid=', 'https://www.bilibili.com/video/av'))
-    iframe.replace_with('')
+    link.replace_with(' ' + link.get('href') + ' ')
 
   for image in soup.find_all('img'):
     # print(video.get('src'))
@@ -45,7 +41,12 @@ def TweetDecoder(rss_data):
 
   # print(soup.prettify())
   # print(str(data))
-  data['plain'] = config['MASTODON']['Prefix'] + '\n' + unescape(soup.prettify()) + '\n' + config['MASTODON']['Appendix'] + '\n\n' +config['MASTODON']['BiliSourcePrefix']+' ' + rss_data['link']
+
+
+	if len(soup.text) > config['MASTODON']['maxchar']:
+     data['plain'] = config['MASTODON']['Prefix'] + '\n' + unescape(soup.prettify())[:maxsum] + '…… \n' + config['MASTODON']['Appendix'] + '\n\n' +config['MASTODON']['BiliSourcePrefix']+' ' + rss_data['link']
+	else:
+     data['plain'] = config['MASTODON']['Prefix'] + '\n' + unescape(soup.prettify()) + '\n' + config['MASTODON']['Appendix'] + '\n\n' +config['MASTODON']['BiliSourcePrefix']+' ' + rss_data['link']
   return data 
 
 if __name__ == '__main__':
