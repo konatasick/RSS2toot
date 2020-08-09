@@ -38,6 +38,9 @@ def TweetDecoder(rss_data):
   for p in soup.find_all('p'):
     p.replace_with(p.text)
 
+  for blockquote in soup.find_all('blockquote'):
+    blockquote.replace_with(blockquote.text)
+
 
   # print(soup.prettify())
   # print(str(data))
