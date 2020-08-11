@@ -28,7 +28,7 @@ def MediaDownloader(data):
   if data['image']:
     img_id = 1
     for url in data['image']:
-      if (img_id <= 4):
+      if (img_id <= 1):
         try:
           urllib.request.urlretrieve(url, 'temp/img'+str(img_id)+'.png')
           img_id = img_id+1
