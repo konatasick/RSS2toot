@@ -43,7 +43,7 @@ def TweetDecoder(rss_data):
 
   # print(soup.prettify())
   # print(str(data))
-  data['plain'] = config['MASTODON']['Prefix'] + '\n' + unescape(soup.prettify()) + '\n\n'+config['MASTODON']['BiliSourcePrefix']+' ' + rss_data['link'] + '\n' + config['MASTODON']['Appendix']
+  data['plain'] = config['MASTODON']['Prefix'] + '\n' + unescape(soup.prettify()) + '\n' + config['MASTODON']['Appendix'] + '\n\n'+config['MASTODON']['BiliSourcePrefix']+' ' + rss_data['link']
   return data 
 
 if __name__ == '__main__':
