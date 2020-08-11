@@ -32,8 +32,11 @@ def TweetDecoder(rss_data):
 
   for image in soup.find_all('img'):
     # print(video.get('src'))
-    data['image'].append(image.get('src'))
-    image.replace_with('')
+    if ('jpeg' in image.get('src')):
+      data['image'].append(image.get('src'))
+      image.replace_with('')
+    else:
+      image.replace_with('')
 
   for p in soup.find_all('p'):
     p.replace_with(p.text)
@@ -45,7 +48,7 @@ def TweetDecoder(rss_data):
     blockquote.replace_with(blockquote.text)
 
   for span in soup.find_all('span'):
-    span.replace_with(span.text)
+    span.replace_with('\n' + span.text + '\n')
 
   for h1 in soup.find_all('h1'):
     h1.replace_with(h1.text)
