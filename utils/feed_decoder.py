@@ -32,10 +32,10 @@ def TweetDecoder(rss_data):
 
   for image in soup.find_all('img'):
     # print(video.get('src'))
-    if ('jpeg' in image.get('src')):
-      data['image'].append(image.get('src'))
+    if ('gif' in image.get('src')):
       image.replace_with('')
     else:
+      data['image'].append(image.get('src'))
       image.replace_with('')
 
   for p in soup.find_all('p'):
