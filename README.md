@@ -1,6 +1,6 @@
 # RSS2toot
 
-A simple script that transport dynamic from RSS to Mastodon. 
+A simple script that transport dynamic from RSS to Mastodon. You can modify `utils/feed_decoder.py` according to your RSS source.
 
 一个将RSS动态搬运到长毛象的脚本。可根据需要自行调整`utils/feed_decoder.py`进行格式化。
 
