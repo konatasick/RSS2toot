@@ -1,8 +1,8 @@
-# ins2toot
+# RSS2toot
 
-A simple script that transport dynamic from Instagram to Mastodon. Based on the Instagram RSS feed powered by [RSSBox](https://github.com/stefansundin/rssbox).
+A simple script that transport dynamic from RSS to Mastodon. 
 
-一个将ins动态搬运到长毛象的脚本——基于[RSSbox](https://github.com/stefansundin/rssbox)生成的ins动态RSS。
+一个将RSS动态搬运到长毛象的脚本。
 
 
 
@@ -27,5 +27,5 @@ nano /etc/crontab
 Recommand do job hourly:
 ```
 #m h dom mon dow user  command
-13 *    * * *   root    cd /bili2toot && python3 run.py
+13 *    * * *   root    cd /RSS2toot && python3 run.py
 ```
