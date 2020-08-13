@@ -2,7 +2,7 @@
 
 A simple script that transport dynamic from RSS to Mastodon. 
 
-一个将RSS动态搬运到长毛象的脚本。
+一个将RSS动态搬运到长毛象的脚本。可根据需要自行调整`utils/feed_decoder.py`进行格式化。
 
 
 
