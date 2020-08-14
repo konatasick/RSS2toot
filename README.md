@@ -1,8 +1,8 @@
-# ins2toot
+# weixin2toot
 
-A simple script that transport dynamic from Instagram to Mastodon. Based on the Instagram RSS feed powered by [RSSBox](https://github.com/stefansundin/rssbox).
+A simple script that transport dynamic from Weixin to Mastodon. Based on the Weixin RSS feed powered by [RSSHub](https://rsshub.app/)(From CareerEngine).
 
-一个将ins动态搬运到长毛象的脚本——基于[RSSbox](https://github.com/stefansundin/rssbox)生成的ins动态RSS。
+一个将微信公众号动态搬运到长毛象的脚本——基于[RSShub](https://rsshub.app/)生成的微信公众号动态RSS（CareerEngine 来源）。
 
 
 
