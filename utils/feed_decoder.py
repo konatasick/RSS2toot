@@ -33,7 +33,8 @@ def TweetDecoder(rss_data):
     if (link.has_attr('data-url')):
       if ('://t.cn/' in link.get('data-url')):
         if ('微博视频' in link.getText()):
-          link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['VideoSourcePrefix']} {link.getText()} {link.get('href')}[?bs4_replace_flag?]''')
+          shortlink = link.get('data-url')
+          link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['VideoSourcePrefix']} {link.getText()} {geturl(shortlink)}[?bs4_replace_flag?]''')
         else:
           shortlink = link.get('data-url')
           link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['ExternalLinkPrefix']} {geturl(shortlink)}[?bs4_replace_flag?]''')
