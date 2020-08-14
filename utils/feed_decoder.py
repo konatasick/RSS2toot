@@ -10,6 +10,7 @@ License: MIT
 from bs4 import BeautifulSoup
 from html import unescape
 from .get_config import GetConfig
+from .get_url import geturl
 
 config = GetConfig()
 
@@ -34,7 +35,8 @@ def TweetDecoder(rss_data):
         if ('微博视频' in link.getText()):
           link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['VideoSourcePrefix']} {link.getText()} {link.get('href')}[?bs4_replace_flag?]''')
         else:
-          link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['ExternalLinkPrefix']} {link.get('href')}[?bs4_replace_flag?]''')
+          shortlink = link.get('data-url')
+          link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['ExternalLinkPrefix']} {geturl(shortlink)}[?bs4_replace_flag?]''')
       else:
         link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['ExternalLinkPrefix']} {link.getText()} {link.get('href')}[?bs4_replace_flag?]''')
     elif (link.getText()[-1] == '#'):
