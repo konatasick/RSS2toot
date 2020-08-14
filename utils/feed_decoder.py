@@ -10,7 +10,6 @@ License: MIT
 from bs4 import BeautifulSoup
 from html import unescape
 from .get_config import GetConfig
-import requests
 
 config = GetConfig()
 
@@ -20,10 +19,6 @@ def TweetDecoder(rss_data):
   :return object
   """
   soup = BeautifulSoup(rss_data['summary'], features='html.parser')
-
-def revertShortLink(url):
-  res = requests.head(url)
-  return res.headers.get('location')
 
   data = {
       'video': [],
@@ -38,8 +33,6 @@ def revertShortLink(url):
       if ('://t.cn/' in link.get('data-url')):
         if ('微博视频' in link.getText()):
           link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['VideoSourcePrefix']} {link.getText()} {link.get('href')}[?bs4_replace_flag?]''')
-        elif ('://t.cn/' in link.get('href')):
-          link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['ExternalLinkPrefix']} {revertShortLink(link.get('href'))}[?bs4_replace_flag?]''')
         else:
           link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['ExternalLinkPrefix']} {link.get('href')}[?bs4_replace_flag?]''')
       else:
