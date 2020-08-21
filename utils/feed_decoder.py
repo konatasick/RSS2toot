@@ -53,6 +53,21 @@ def TweetDecoder(rss_data):
   for h1 in soup.find_all('h1'):
     h1.replace_with(h1.text)
 
+  for h2 in soup.find_all('h2'):
+    h2.replace_with(h2.text)
+
+  for h3 in soup.find_all('h3'):
+    h3.replace_with(h3.text)
+
+  for h4 in soup.find_all('h4'):
+    h4.replace_with(h4.text)
+
+  for h5 in soup.find_all('h5'):
+    h5.replace_with(h5.text)
+
+  for h6 in soup.find_all('h6'):
+    h6.replace_with(h6.text)
+
   for div in soup.find_all('div'):
     div.replace_with(div.text)
 
