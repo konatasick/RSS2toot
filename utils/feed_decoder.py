@@ -32,7 +32,7 @@ def TweetDecoder(rss_data):
     # link.replace_with(' ' + link.get('href') + ' ')
     if (link.has_attr('data-url')):
       if ('://t.cn/' in link.get('data-url')):
-        if ('微博视频' in link.getText()):
+        if ('微博视频' or '秒拍视频' in link.getText()):
           shortlink = link.get('data-url')
           link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['VideoSourcePrefix']} {link.getText()} {geturl(shortlink)}[?bs4_replace_flag?]''')
         elif ('查看图片' in link.getText()):
@@ -49,7 +49,7 @@ def TweetDecoder(rss_data):
 
   for video in soup.find_all('video'):
     # print(video.get('src'))
-    if ('://f.video.weibocdn.com' in video.get('src')):
+    if ('://f.video.weibocdn.com' or '://gslb.miaopai.com' in video.get('src')):
       # need to add a reffer i guess.
       data['video'].append(video.get('src'))
       data['video_poster'].append(video.get('poster'))
