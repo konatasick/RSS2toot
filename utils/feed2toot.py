@@ -23,29 +23,29 @@ def Feed2Toot(feed_data):
     if not path.exists('temp'):
       makedirs('temp')
 
-    if tweet['id'] not in historyList:
-      print('INFO: decode ' + tweet['id'])
+    if tweet['title'] not in historyList:
+      print('INFO: decode ' + tweet['title'])
       tweet_decoded = TweetDecoder(tweet)
-      print('INFO: download ' + tweet['id'])
+      print('INFO: download ' + tweet['title'])
       try:
         toot_content = MediaDownloader(tweet_decoded)
-        print('INFO: download succeed ' + tweet['id'])
+        print('INFO: download succeed ' + tweet['title'])
       except Exception:
-        print('ERRO: download failed ' + tweet['id'])
+        print('ERRO: download failed ' + tweet['title'])
         # for e in Exception:
         #   print(e)
-      print('INFO: post toot ' + tweet['id'])
+      print('INFO: post toot ' + tweet['title'])
       try:
         TootPoster(toot_content)
-        print('INFO: post succeed ' + tweet['id'])
+        print('INFO: post succeed ' + tweet['title'])
       except Exception:
-        print('ERRO: post failed ' + tweet['id'])
-      historyList.append(tweet['id'])
+        print('ERRO: post failed ' + tweet['title'])
+      historyList.append(tweet['title'])
 
     if path.exists('temp'):
       shutil.rmtree('temp')
 
-    print('INFO: save to db ' + tweet['id'])
+    print('INFO: save to db ' + tweet['title'])
     with open('db.txt', 'w+') as db:
       for row in historyList:
         db.write(str(row) + '\n')

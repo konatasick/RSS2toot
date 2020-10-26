@@ -24,7 +24,6 @@ def FeedParaser(rss_link):
     #   data[detail]=item[detail]
     data['title']=item['title']
     data['summary']=item['summary']
-    data['id']=item['id']
     data['link']=item['link']
     rss.append(data)
     
