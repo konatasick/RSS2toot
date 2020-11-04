@@ -1,5 +1,6 @@
 from mastodon import Mastodon
 import filetype
+from html import unescape
 from .get_config import GetConfig
 
 config = GetConfig()
@@ -20,6 +21,7 @@ def TweetDecoder(rss_data):
   :params object: Summary from FeedParaser
   :return object
   """
+  title = unescape(rss_data['title'])
 
 def TootPoster(data):
   """
@@ -36,7 +38,7 @@ def TootPoster(data):
       media_ids_arr.append(media_post('temp/img%d.png' % id))
 
   try:
-    mastodon.status_post(status=data['plain'], spoiler_text=rss_data['title'], media_ids=media_ids_arr, visibility=config['MASTODON']['TootVisibility'])
+    mastodon.status_post(status=data['plain'], spoiler_text=title, media_ids=media_ids_arr, visibility=config['MASTODON']['TootVisibility'])
   except Exception:
     print(f'ERRO: failed[mastodon.status_post]')
     # for e in Exception:
