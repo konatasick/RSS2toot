@@ -7,7 +7,7 @@ Author: Mashiro
 URL: https://2heng.xin
 License: MIT
 """
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, NavigableString
 from html import unescape
 from .get_config import GetConfig
 
@@ -20,12 +20,26 @@ def TweetDecoder(rss_data):
   """
   soup = BeautifulSoup(rss_data['summary'], features='html.parser')
 
+
   data = {
       'iframe': [],
       'image': [],
       'plain': None,
       'cwcontent': None
   }
+
+  invalid_tags = ['table', 'tr', 'td', 'SC_ON', 'SC_OFF']
+
+  for tag in soup.findAll(True):
+    if tag.name in invalid_tags:
+      s = ""
+
+      for c in tag.contents:
+        if not isinstance(c, NavigableString):
+          c = strip_tags(unicode(c), invalid_tags)
+            s += unicode(c)
+
+      tag.replaceWith(s)
 
 
   for link in soup.find_all('a'):
@@ -36,12 +50,10 @@ def TweetDecoder(rss_data):
     else:
       link.replace_with(' ' + link.get('href') + ' ')
 
-  for table in soup.find_all('table'):
-    for image in table.find_all('img'):
-      # print(video.get('src'))
-      data['image'].append(image.get('src'))
-      image.replace_with(image.get('title'))
-    table.replace_with(image)
+  for image in table.find_all('img'):
+    # print(video.get('src'))
+    data['image'].append(image.get('src'))
+    image.replace_with(image.get('title'))
 
   for p in soup.find_all('p'):
     p.replace_with(p.text + '\n')
@@ -79,11 +91,9 @@ def TweetDecoder(rss_data):
   for iframe in soup.find_all('iframe'):
     iframe.replace_with(iframe.get('src'))
 
-  for tagbegin in soup.select('SC_ON'):
+  for tagbegin in soup.select(''):
     tagbegin.extract()
 
-  for tagend in soup.select('SC_OFF'):
-    tagend.extract('')
 
   # print(soup.prettify())
   # print(str(data))
