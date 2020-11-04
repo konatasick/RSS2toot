@@ -26,9 +26,6 @@ def TweetDecoder(rss_data):
       'plain': None,
       'cwcontent': None
   }
-  
-  soup.replace('<!-- SC_ON -->', '\n')
-  soup.replace('<!-- SC_OFF -->','\n')
 
 
   for link in soup.find_all('a'):
@@ -82,6 +79,9 @@ def TweetDecoder(rss_data):
 
   for table in soup.find_all('table'):
     table.replace_with(table.text)
+
+  soup.prettify.replace('<!-- SC_ON -->', '\n')
+  soup.prettify.replace('<!-- SC_OFF -->','\n')
 
   # print(soup.prettify())
   # print(str(data))
