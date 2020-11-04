@@ -30,16 +30,9 @@ def TweetDecoder(rss_data):
 
   invalid_tags = ['table', 'tr', 'td', 'SC_ON', 'SC_OFF']
 
-  for tag in soup.findAll(True):
-    if tag.name in invalid_tags:
-      s = ""
-
-      for c in tag.contents:
-        if not isinstance(c, NavigableString):
-          c = strip_tags(unicode(c), invalid_tags)
-            s += unicode(c)
-
-      tag.replaceWith(s)
+  for tag in invalid_tags: 
+    for match in soup.findAll(tag):
+        match.unwrap()
 
 
   for link in soup.find_all('a'):
@@ -50,7 +43,7 @@ def TweetDecoder(rss_data):
     else:
       link.replace_with(' ' + link.get('href') + ' ')
 
-  for image in table.find_all('img'):
+  for image in soup.find_all('img'):
     # print(video.get('src'))
     data['image'].append(image.get('src'))
     image.replace_with(image.get('title'))
@@ -91,8 +84,6 @@ def TweetDecoder(rss_data):
   for iframe in soup.find_all('iframe'):
     iframe.replace_with(iframe.get('src'))
 
-  for tagbegin in soup.select(''):
-    tagbegin.extract()
 
 
   # print(soup.prettify())
@@ -104,7 +95,7 @@ def TweetDecoder(rss_data):
   if len(soup.text) > maxchar:
      data['plain'] = unescape(soup.prettify())[:maxchar] + '…… \n阅读全文： ' + config['MASTODON']['BiliSourcePrefix']+' ' + rss_data['link'] + '\n\n' + config['MASTODON']['Appendix']
   else:
-     data['plain'] = unescape(soup.prettify()) + '\n' +config['MASTODON']['BiliSourcePrefix']+' ' + rss_data['link'] + '\n\n' + config['MASTODON']['Appendix']
+     data['plain'] = unescape(soup.prettify()) + '\n\n' + config['MASTODON']['Appendix']
   return data 
 
 if __name__ == '__main__':
