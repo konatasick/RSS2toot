@@ -79,10 +79,10 @@ def TweetDecoder(rss_data):
   for iframe in soup.find_all('iframe'):
     iframe.replace_with(iframe.get('src'))
 
-  for tagbegin in soup.select('!-- SC_ON --'):
+  for tagbegin in soup.select(str('!-- SC_ON --')):
     tagbegin.extract()
 
-  for tagend in soup.select('!-- SC_OFF --'):
+  for tagend in soup.select(str('!-- SC_OFF --')):
     tagend.extract('')
 
   # print(soup.prettify())
