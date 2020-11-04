@@ -21,7 +21,7 @@ def TweetDecoder(rss_data):
   :params object: Summary from FeedParaser
   :return object
   """
-  title = unescape(rss_data['title'])
+  title = str(rss_data['title'])
 
 def TootPoster(data):
   """
