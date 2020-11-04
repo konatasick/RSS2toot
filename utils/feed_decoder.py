@@ -27,9 +27,17 @@ def TweetDecoder(rss_data):
       'cwcontent': None
   }
   
-  
+  soup.replace('<!-- SC_ON -->', '\n')
+  soup.replace('<!-- SC_OFF -->','\n')
+
+
   for link in soup.find_all('a'):
-    link.replace_with(' ' + link.get('href') + ' ')
+    if ('://www.reddit.com/user/' in link.get('href')):
+      link.replace_with(' ' + link.getText() + ' ')
+    elif (('[link]' in link.getText()) or ('[留言]' in link.getText())):
+      link.replace_with('')
+    else:
+      link.replace_with(' ' + link.get('href') + ' ')
 
   for image in soup.find_all('img'):
     # print(video.get('src'))
@@ -37,7 +45,7 @@ def TweetDecoder(rss_data):
     image.replace_with('')
 
   for p in soup.find_all('p'):
-    p.replace_with(p.text)
+    p.replace_with(p.text + '\n')
 
   for br in soup.find_all('br'):
     br.replace_with('\n')
@@ -71,6 +79,9 @@ def TweetDecoder(rss_data):
 
   for iframe in soup.find_all('iframe'):
     iframe.replace_with(iframe.get('src'))
+
+  for table in soup.find_all('table'):
+    table.replace_with(table.text)
 
   # print(soup.prettify())
   # print(str(data))
