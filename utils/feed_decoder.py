@@ -40,7 +40,8 @@ def TweetDecoder(rss_data):
     for image in table.find_all('img'):
       # print(video.get('src'))
       data['image'].append(image.get('src'))
-    table.replace_with(image.get('title'))
+      image.replace_with(image.get('title'))
+    table.replace_with(image)
 
   for p in soup.find_all('p'):
     p.replace_with(p.text + '\n')
