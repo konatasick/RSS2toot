@@ -36,10 +36,12 @@ def TweetDecoder(rss_data):
     else:
       link.replace_with(' ' + link.get('href') + ' ')
 
-  for image in soup.find_all('img'):
-    # print(video.get('src'))
-    data['image'].append(image.get('src'))
-    image.replace_with('')
+  for table in soup.find_all('table'):
+    for image in table.find_all('img'):
+      # print(video.get('src'))
+      data['image'].append(image.get('src'))
+      image.replace_with('')
+    table.replace_with(table.find_all('title'))
 
   for p in soup.find_all('p'):
     p.replace_with(p.text + '\n')
@@ -77,15 +79,11 @@ def TweetDecoder(rss_data):
   for iframe in soup.find_all('iframe'):
     iframe.replace_with(iframe.get('src'))
 
-  for table in soup.find_all('table'):
-    table.replace_with(table.text)
+  for tagbegin in soup.select('!-- SC_ON --'):
+    tagbegin.extract()
 
-  for tagbegin in soup.find_all('!-- SC_ON --'):
-    tagbegin.replace_with('\n')
-
-  for tagend in soup.find_all('!-- SC_OFF --'):
-    tagend.replace_with('')
-
+  for tagend in soup.select('!-- SC_OFF --'):
+    tagend.extract('')
 
   # print(soup.prettify())
   # print(str(data))
