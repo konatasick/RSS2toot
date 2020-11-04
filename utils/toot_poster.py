@@ -15,6 +15,13 @@ def media_post(file):
   # print('File MIME type: %s' % kind.mime)
   return mastodon.media_post(file, kind.mime)
 
+def TweetDecoder(rss_data):
+  """
+  :params object: Summary from FeedParaser
+  :return object
+  """
+  cwcontent = config['MASTODON']['Prefix'] + ' 『' + rss_data['title'] + '』 '
+
 def TootPoster(data):
   """
   :data object: Return from media_downloader
@@ -30,7 +37,7 @@ def TootPoster(data):
       media_ids_arr.append(media_post('temp/img%d.png' % id))
 
   try:
-    mastodon.status_post(status=data['plain'], media_ids=media_ids_arr, visibility=config['MASTODON']['TootVisibility'])
+    mastodon.status_post(status=data['plain'], spoiler_text=cwcontent, media_ids=media_ids_arr, visibility=config['MASTODON']['TootVisibility'])
   except Exception:
     print(f'ERRO: failed[mastodon.status_post]')
     # for e in Exception:
