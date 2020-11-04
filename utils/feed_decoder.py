@@ -80,10 +80,10 @@ def TweetDecoder(rss_data):
   for table in soup.find_all('table'):
     table.replace_with(table.text)
 
-  for tagbegin in soup.find_all(text = '<!-- SC_ON -->'):
-    tagbegin.replace_with('')
+  for tagbegin in soup.find_all('!-- SC_ON --'):
+    tagbegin.replace_with('\n')
 
-  for tagend in soup.find_all(text = '<!-- SC_OFF -->'):
+  for tagend in soup.find_all('!-- SC_OFF --'):
     tagend.replace_with('')
 
 
