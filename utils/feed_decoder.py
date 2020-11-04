@@ -75,8 +75,8 @@ def TweetDecoder(rss_data):
   # print(soup.prettify())
   # print(str(data))
   maxchar = int(config['MASTODON']['maxchar'])
-  
-  data['cwcontent'] = str(config['MASTODON']['Prefix'] + ' ' + rss_data['title'])
+
+  data['cwcontent'] = config['MASTODON']['Prefix'] + ' ' + unescape(rss_data['title'])
 
   if len(soup.text) > maxchar:
      data['plain'] = unescape(soup.prettify())[:maxchar] + '…… \n阅读全文： ' + config['MASTODON']['BiliSourcePrefix']+' ' + rss_data['link'] + '\n\n' + config['MASTODON']['Appendix']
