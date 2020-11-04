@@ -44,6 +44,7 @@ def MediaDownloader(data):
     res['video_count']=1
   
   res['plain']=data['plain']
+  res['cwcontent']=data['cwcontent']
 
   return res
 
