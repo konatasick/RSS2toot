@@ -41,6 +41,9 @@ def TweetDecoder(rss_data):
   for p in soup.find_all('p'):
     p.replace_with(p.text)
 
+  for section in soup.find_all('section'):
+    section.replace_with(section.text)
+
   for br in soup.find_all('br'):
     br.replace_with('\n')
 
@@ -52,9 +55,6 @@ def TweetDecoder(rss_data):
 
   for span in soup.find_all('span'):
     span.replace_with('\n' + span.text + '\n')
-
-  for section in soup.find_all('section'):
-    section.replace_with('')
 
   for h1 in soup.find_all('h1'):
     h1.replace_with(h1.text)
