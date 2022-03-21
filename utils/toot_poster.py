@@ -22,17 +22,23 @@ def TootPoster(data):
   """
   media_ids_arr = []
 
+
   if data['video_count'] is not None:
     id=1
-    if config['MASTODON']['IncludeVideo'] == 'false':
-      media_ids_arr.append(media_post('temp/video%d.png' % id))
+    media_ids_arr.append(media_post('temp/video%d.png' % id))
       # data['plain'] = data['plain'] + '\n'+config['MASTODON']['VideoSourcePrefix']+' ' + data['video_link']
-    else:
-      try:
-        media_ids_arr.append(media_post('temp/video%d.mp4' % id))
-      except Exception:
-        media_ids_arr.append(media_post('temp/video%d.png' % id))
-        # data['plain'] = data['plain'] + '\n'+config['MASTODON']['VideoSourcePrefix']+' ' + data['video_link']
+
+#  if data['video_count'] is not None:
+#    id=1
+#    if config['MASTODON']['IncludeVideo'] == 'false':
+#      media_ids_arr.append(media_post('temp/video%d.png' % id))
+#      # data['plain'] = data['plain'] + '\n'+config['MASTODON']['VideoSourcePrefix']+' ' + data['video_link']
+#    else:
+#      try:
+#        media_ids_arr.append(media_post('temp/video%d.mp4' % id))
+#      except Exception:
+#        media_ids_arr.append(media_post('temp/video%d.png' % id))
+#        # data['plain'] = data['plain'] + '\n'+config['MASTODON']['VideoSourcePrefix']+' ' + data['video_link']
 
   if data['image_count'] is not None:
     for id in range(1, min(data['image_count'], 5)):
