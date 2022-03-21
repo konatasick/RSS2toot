@@ -72,6 +72,9 @@ def TweetDecoder(rss_data):
 
   for div in soup.find_all('div'):
     div.replace_with('')
+
+  for span in soup.find_all('span'):
+    span.replace_with(span.getText())
   
   # print(soup.prettify())
   # print(str(data))
