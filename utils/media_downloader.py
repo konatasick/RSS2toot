@@ -41,23 +41,29 @@ def MediaDownloader(data):
 
     res['image_count']=img_id
 
-  if data['video']:
+  if data['video_poster']:
     video_id = 1
-    for url in data['video']:
-      if (video_id <= 1):
-        try:
-          if config['MASTODON']['IncludeVideo'] != 'false':
-            urllib.request.urlretrieve(url, 'temp/video'+str(video_id)+'.mp4')
-
-          urllib.request.urlretrieve(data['video_poster'][video_id-1], 'temp/video'+str(video_id)+'.png')
-          res['video_link']=url
-          video_id = video_id+1
-        except Exception:
-          print(f'ERRO: failed[vid]: {url}')
-          # for e in Exception:
-          #   print(e)
-
+    urllib.request.urlretrieve(data['video_poster'][video_id-1], 'temp/video'+str(video_id)+'.png')
     res['video_count']=video_id
+
+
+#  if data['video']:
+#    video_id = 1
+#    for url in data['video']:
+#      if (video_id <= 1):
+#        try:
+#          if config['MASTODON']['IncludeVideo'] != 'false':
+#            urllib.request.urlretrieve(url, 'temp/video'+str(video_id)+'.mp4')
+
+#          urllib.request.urlretrieve(data['video_poster'][video_id-1], 'temp/video'+str(video_id)+'.png')
+#          res['video_link']=url
+#          video_id = video_id+1
+#        except Exception:
+#          print(f'ERRO: failed[vid]: {url}')
+#          # for e in Exception:
+#          #   print(e)
+#
+#    res['video_count']=video_id
   
   res['plain']=data['plain']
 

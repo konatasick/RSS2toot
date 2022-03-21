@@ -49,16 +49,20 @@ def TweetDecoder(rss_data):
 
   for video in soup.find_all('video'):
     # print(video.get('src'))
-    if (('://f.video.weibocdn.com' in video.get('src')) or ('://gslb.miaopai.com' in video.get('src'))):
-      # need to add a reffer i guess.
-      data['video'].append(video.get('src'))
-      data['video_poster'].append(video.get('poster'))
-      video.replace_with('')
+    data['video_poster'].append(video.get('poster'))
+   # if (('://f.video.weibocdn.com' in video.get('src')) or ('://gslb.miaopai.com' in video.get('src'))):
+   #   # need to add a reffer i guess.
+   #      data['video'].append(video.get('src'))
+   #      data['video_poster'].append(video.get('poster'))
+    video.replace_with('')
 
   for image in soup.find_all('img'):
     # print(video.get('src'))
-    data['image'].append(image.get('src'))
-    image.replace_with('')
+    if ('/emoticon/' in image.get('src')):
+      image.replace_with(f'''[?bs4_replace_flag?] {image.get('alt')} [?bs4_replace_flag?]''')
+    else:
+      data['image'].append(image.get('src'))
+      image.replace_with('')
 
   for br in soup.find_all('br'):
     br.replace_with('\n')
