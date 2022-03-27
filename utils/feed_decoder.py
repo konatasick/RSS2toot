@@ -58,7 +58,7 @@ def TweetDecoder(rss_data):
 
   for image in soup.find_all('img'):
     # print(video.get('src'))
-    if ('/emoticon/' in image.get('src')):
+    if (('/emoticon/' in image.get('src')) or ('/expression/' in image.get('src'))):
       image.replace_with(f'''[?bs4_replace_flag?] {image.get('alt')} [?bs4_replace_flag?]''')
     else:
       data['image'].append(image.get('src'))
