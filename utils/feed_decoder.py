@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 from html import unescape
 from .get_config import GetConfig
 from .get_url import geturl
+from urllib.parse import unquote
 
 config = GetConfig()
 
@@ -28,24 +29,27 @@ def TweetDecoder(rss_data):
       'plain': None
   }
 
+
   for link in soup.find_all('a'):
     # link.replace_with(' ' + link.get('href') + ' ')
-    if (link.has_attr('data-url')):
-      if ('://t.cn/' in link.get('data-url')):
-        if (('微博视频' in link.getText()) or ('秒拍视频' in link.getText())):
-          shortlink = link.get('data-url')
-          link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['VideoSourcePrefix']} {link.getText()} {geturl(shortlink)}[?bs4_replace_flag?]''')
-        elif ('查看图片' in link.getText()):
-          link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['PictureSourcePrefix']} {link.get('href')}[?bs4_replace_flag?]''')
-        else:
-          shortlink = link.get('data-url')
-          link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['ExternalLinkPrefix']} {geturl(shortlink)}[?bs4_replace_flag?]''')
+    if ('weibo.cn/sinaurl' in link.get('href')):
+      if (('微博视频' in link.getText()) or ('秒拍视频' in link.getText())):
+        shortlink = link.get('href')
+        truelink = shortlink.replace('https://weibo.cn/sinaurl?u=', '')
+        link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['VideoSourcePrefix']} {link.getText()} {unquote(truelink)}[?bs4_replace_flag?]''')
+      elif ('查看图片' in link.getText()):
+        shortlink = link.get('href')
+        truelink = shortlink.replace('https://weibo.cn/sinaurl?u=', '')
+        link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['PictureSourcePrefix']} {unquote(truelink)}[?bs4_replace_flag?]''')
       else:
-        link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['ExternalLinkPrefix']} {link.getText()} {link.get('href')}[?bs4_replace_flag?]''')
+        shortlink = link.get('href')
+        truelink = shortlink.replace('https://weibo.cn/sinaurl?u=', '')
+        link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['ExternalLinkPrefix']} {unquote(truelink)}[?bs4_replace_flag?]''')    
     elif (link.getText()[-1] == '#'):
       link.replace_with(f'''[?bs4_replace_flag?] {link.getText()[:-1]} [?bs4_replace_flag?]''')
     else:
-      link.replace_with('[?bs4_replace_flag?]'+link.getText()+'[?bs4_replace_flag?]')
+      link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['ExternalLinkPrefix']} {link.getText()} {link.get('href')}[?bs4_replace_flag?]''')
+
 
   for video in soup.find_all('video'):
     # print(video.get('src'))
