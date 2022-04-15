@@ -47,6 +47,8 @@ def TweetDecoder(rss_data):
         link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['ExternalLinkPrefix']} {unquote(truelink)}[?bs4_replace_flag?]''')    
     elif (link.getText()[-1] == '#'):
       link.replace_with(f'''[?bs4_replace_flag?] {link.getText()[:-1]} [?bs4_replace_flag?]''')
+    elif (link.getText()[0] == '@'):
+      link.replace_with(f'''[?bs4_replace_flag?] {link.getText()} [?bs4_replace_flag?]''')
     else:
       link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['ExternalLinkPrefix']} {link.getText()} {link.get('href')}[?bs4_replace_flag?]''')
 
