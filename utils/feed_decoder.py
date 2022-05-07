@@ -46,7 +46,8 @@ def TweetDecoder(rss_data):
         truelink = shortlink.replace('https://weibo.cn/sinaurl?u=', '')
         link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['ExternalLinkPrefix']} {unquote(truelink)}[?bs4_replace_flag?]''')    
     elif (link.getText()[-1] == '#'):
-      link.replace_with(f'''[?bs4_replace_flag?] {link.getText()[:-1]} [?bs4_replace_flag?]''')
+      tag = link.getText()[:-1]
+      link.replace_with(f'''[?bs4_replace_flag?] {tag.replace(" ", "")} [?bs4_replace_flag?]''')
     elif (link.getText()[0] == '@'):
       link.replace_with(f'''[?bs4_replace_flag?] {link.getText()} [?bs4_replace_flag?]''')
     else:
