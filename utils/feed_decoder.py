@@ -33,11 +33,7 @@ def TweetDecoder(rss_data):
   for link in soup.find_all('a'):
     # link.replace_with(' ' + link.get('href') + ' ')
     if ('weibo.cn/sinaurl' in link.get('href')):
-      if (('微博视频' in link.getText()) or ('秒拍视频' in link.getText())):
-        shortlink = link.get('href')
-        truelink = shortlink.replace('https://weibo.cn/sinaurl?u=', '')
-        link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['VideoSourcePrefix']} {link.getText()} {unquote(truelink)}[?bs4_replace_flag?]''')
-      elif ('查看图片' in link.getText()):
+      if ('查看图片' in link.getText()):
         shortlink = link.get('href')
         truelink = shortlink.replace('https://weibo.cn/sinaurl?u=', '')
         link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['PictureSourcePrefix']} {unquote(truelink)}[?bs4_replace_flag?]''')
@@ -50,6 +46,8 @@ def TweetDecoder(rss_data):
       link.replace_with(f'''[?bs4_replace_flag?] {tag.replace(" ", "")} [?bs4_replace_flag?]''')
     elif (link.getText()[0] == '@'):
       link.replace_with(f'''[?bs4_replace_flag?] {link.getText()} [?bs4_replace_flag?]''')
+    elif (('微博视频' in link.getText()) or ('秒拍视频' in link.getText())):
+      link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['VideoSourcePrefix']} {link.getText()} {link.get('href')}[?bs4_replace_flag?]''')
     else:
       link.replace_with(f'''[?bs4_replace_flag?] {config['MASTODON']['ExternalLinkPrefix']} {link.getText()} {link.get('href')}[?bs4_replace_flag?]''')
 
