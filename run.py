@@ -14,10 +14,13 @@ import os
 
 config = GetConfig()
 
-if __name__ == '__main__':
-  if config['PROXY']['ProxyOn'] == 'true':
-    os.environ['HTTP_PROXY'] = config['PROXY']['HttpProxy']
-    os.environ['HTTPS_PROXY'] = config['PROXY']['HttpsProxy']
+if __name__ == "__main__":
+    if config["PROXY"]["ProxyOn"] == "true":
+        os.environ["HTTP_PROXY"] = config["PROXY"]["HttpProxy"]
+        os.environ["HTTPS_PROXY"] = config["PROXY"]["HttpsProxy"]
 
-  RSS_dict = FeedParaser(config['BILI']['BiliRss'])
-  Feed2Toot(RSS_dict)
+    PodcastRss = config["RSS"]["PodcastRss"]
+
+    for rss_url in PodcastRss:
+        RSS_dict = FeedParaser(rss_url)
+        Feed2Toot(RSS_dict)

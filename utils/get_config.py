@@ -1,10 +1,7 @@
-import configparser
+import json
 
-config = configparser.ConfigParser()
-config.read('conf.ini')
 
 def GetConfig():
-  for i in config:
-    for t in i:
-      t = str(t)
-  return config
+    with open("conf.json", "r") as f:
+        config = json.load(f)
+    return config

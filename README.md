@@ -9,8 +9,8 @@ A simple script that transport dynamic from RSS to Mastodon. You can modify `uti
 
 ```
 pip3 install -r requirements.txt
-cp conf.sample.ini conf.ini
-nano conf.ini
+cp conf.sample.json conf.json
+nano conf.json
 python3 run.py
 ```
 
