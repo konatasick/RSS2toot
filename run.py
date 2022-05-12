@@ -23,4 +23,6 @@ if __name__ == "__main__":
 
     for rss_url in PodcastRss:
         RSS_dict = FeedParaser(rss_url)
-        Feed2Toot(RSS_dict)
+        inList = Feed2Toot(RSS_dict)
+        if not inList:
+            break
