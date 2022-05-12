@@ -16,6 +16,7 @@ def FeedParaser(rss_link):
     :return object: rss object
     """
     RssHubFeed = feedparser.parse(rss_link)
+    rss_author = RssHubFeed.channel.title
 
     rss = []
 
@@ -24,6 +25,7 @@ def FeedParaser(rss_link):
         # for detail in item.keys():
         #   data[detail]=item[detail]
         data["title"] = item["title"]
+        data["author"] = rss_author
         data["summary"] = item["summary"]
         data["id"] = item["id"]
         data["link"] = item["link"]

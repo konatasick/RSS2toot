@@ -74,7 +74,9 @@ def TweetDecoder(rss_data):
     if len(soup.text) > maxchar:
         data["plain"] = (
             config["MASTODON"]["Prefix"]
-            + "\n『"
+            + "\n#"
+            + rss_data["author"]
+            + " - 『"
             + rss_data["title"]
             + "』\n\n"
             + unescape(soup.prettify())[:maxchar]
@@ -88,7 +90,9 @@ def TweetDecoder(rss_data):
     else:
         data["plain"] = (
             config["MASTODON"]["Prefix"]
-            + "\n『"
+            + "\n#"
+            + rss_data["author"]
+            + " - 『"
             + rss_data["title"]
             + "』\n"
             + unescape(soup.prettify())

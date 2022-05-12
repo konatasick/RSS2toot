@@ -42,11 +42,11 @@ def Feed2Toot(feed_data):
             except Exception:
                 print("ERRO: post failed " + tweet["id"])
             historyList.append(tweet["id"])
+            print("INFO: save to db " + tweet["id"])
 
         if path.exists("temp"):
             shutil.rmtree("temp")
 
-        print("INFO: save to db " + tweet["id"])
         with open("db.txt", "w+") as db:
             for row in historyList:
                 db.write(str(row) + "\n")
