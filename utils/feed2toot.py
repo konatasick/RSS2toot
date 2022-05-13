@@ -22,7 +22,8 @@ def Feed2Toot(feed_data):
 
     inList = True
 
-    for tweet in reversed(feed_data):
+    # for tweet in reversed(feed_data):
+    for tweet in feed_data:
         if tweet["id"] not in historyList:
 
             if not path.exists("temp"):
